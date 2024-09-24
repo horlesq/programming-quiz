@@ -28,7 +28,7 @@ function reducer(state, action) {
 
 export default function App() {
     const [state, dispach] = useReducer(reducer, initialState);
-
+    console.log(state);
     useEffect(() => {
         async function fetchQuestions() {
             try {
