@@ -1,0 +1,3 @@
+[build]
+  functions = "netlify/functions"  # Where your functions are stored
+  publish = "build"  # Where your React app gets built (default for Create React App)
