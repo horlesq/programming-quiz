@@ -8,7 +8,7 @@
     --color-accent: #f5893b;
 
     /* Retro btn */
-    --outline-width: 5px;
+    --outline-width: 4px;
     --shadow-width: 4px;
 
     --button-background: #f5893b;
@@ -32,7 +32,6 @@ html {
 body {
     display: flex;
     justify-content: center; /* Horizontal centering */
-    align-items: center; /* Vertical centering */
     min-height: 100vh;
     color: var(--color-light);
     background-color: var(--color-darkest);
@@ -42,21 +41,19 @@ body {
 .app {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center contents vertically */
-    align-items: center; /* Center contents horizontally */
-    width: 100%; /* Full width of the viewport */
-    height: 100%; /* Full height of the viewport */
+    align-items: center;
+    justify-content: center;
+    padding-top: 8rem;
 }
 
 .main {
     margin: auto;
     width: 50rem;
-    letter-spacing: 1px;
+    letter-spacing: 0.15rem;
 }
 
 .app-header {
     gap: 2rem;
-    width: 90rem;
     margin-bottom: 4rem;
     display: flex;
     align-items: center;
@@ -93,7 +90,7 @@ h3 {
 }
 
 h4 {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     font-weight: 600;
     margin-bottom: 2.4rem;
 }
@@ -135,11 +132,10 @@ progress {
     font-family: inherit;
     color: inherit;
     font-size: 2rem;
-    border: 2px solid var(--color-dark);
+    border: 3px solid var(--color-light);
     background-color: var(--color-dark);
     padding: 1.2rem 2.4rem;
     cursor: pointer;
-    border-radius: 100px;
     transition: 0.3s;
 }
 
@@ -155,16 +151,14 @@ progress {
     cursor: not-allowed;
 }
 
-/* .btn-ui {
-} */
-
 .btn-ui {
+    float: right;
     background: var(--button-background);
     display: inline-block;
     position: relative;
     text-align: center;
-    font-size: 25px;
-    padding: 20px;
+    font-size: 20px;
+    padding: 10px;
     font-family: "Press Start 2P", cursive;
     text-decoration: none;
     color: white;
@@ -220,14 +214,14 @@ progress {
 }
 
 .btn-option.correct {
-    background-color: var(--color-theme);
-    border: 2px solid var(--color-theme);
+    background-color: var(--color-accent);
+    border: 3px solid var(--color-light);
     color: var(--color-light);
 }
 .btn-option.wrong {
-    background-color: var(--color-accent);
-    border: 2px solid var(--color-accent);
-    color: var(--color-darkest);
+    background-color: var(--color-theme);
+    border: 3px solid var(--color-light);
+    color: var(--color-light);
 }
 
 .answer {
@@ -271,7 +265,7 @@ progress {
     float: left;
     font-size: 1.8rem;
     color: var(--color-medium);
-    border: 2px solid var(--color-dark);
+    border: 4px solid var(--color-light);
     padding: 1.35rem 2.8rem;
     border-radius: 100px;
 }
