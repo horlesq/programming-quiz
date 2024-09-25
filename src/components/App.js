@@ -17,6 +17,18 @@ const initialState = {
     score: 0,
 };
 
+function shuffleArray(array) {
+    const shuffledArray = [...array]; // Create a copy of the array to avoid mutating the original
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledArray[i], shuffledArray[j]] = [
+            shuffledArray[j],
+            shuffledArray[i],
+        ];
+    }
+    return shuffledArray;
+}
+
 function reducer(state, action) {
     switch (action.type) {
         case "dataReceived":
@@ -50,6 +62,7 @@ function reducer(state, action) {
         case "reset":
             return {
                 ...state,
+                questions: shuffleArray(state.questions), // Shuffle the questions on reset
                 index: 0,
                 answer: null,
                 score: 0,
@@ -77,7 +90,8 @@ export default function App() {
                 if (!response.ok) throw new Error("Could not fetch questions");
 
                 const data = await response.json();
-                dispach({ type: "dataReceived", payload: data });
+                const shuffledQuestions = shuffleArray(data); // Shuffle the questions
+                dispach({ type: "dataReceived", payload: shuffledQuestions });
             } catch (error) {
                 dispach({ type: "dataFailed" });
                 console.error("Error fetching questions:", error);
