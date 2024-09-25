@@ -6,6 +6,7 @@ import { Error } from "./Error";
 import { StartScreen } from "./StartScreen";
 import { Questions } from "./Questions";
 import { NextButton } from "./NextButton";
+import { Progress } from "./Progress";
 
 const initialState = {
     questions: [],
@@ -38,7 +39,7 @@ function reducer(state, action) {
                 answer: action.payload,
                 score:
                     action.payload === question.correctOption
-                        ? state.score + question.pointsscore
+                        ? state.score + question.points
                         : state.score,
             };
         case "nextQuestion":
@@ -54,7 +55,8 @@ export default function App() {
         initialState
     );
     const numQuestions = questions.length;
-
+    const maxScore = questions.reduce((prev, cur) => prev + cur.points, 0);
+    console.log(score);
     useEffect(() => {
         async function fetchQuestions() {
             try {
@@ -89,6 +91,13 @@ export default function App() {
                 )}
                 {status === "active" && (
                     <>
+                        <Progress
+                            index={index}
+                            numQuestions={numQuestions}
+                            score={score}
+                            maxScore={maxScore}
+                            answer={answer}
+                        />
                         <Questions
                             question={questions[index]}
                             dispach={dispach}
