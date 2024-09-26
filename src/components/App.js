@@ -8,6 +8,9 @@ import { Questions } from "./Questions";
 import { NextButton } from "./NextButton";
 import { Progress } from "./Progress";
 import { FinishScreen } from "./FinishScreen";
+import { Timer } from "./Timer";
+
+const SECS_PER_QUESTION = 15;
 
 const initialState = {
     questions: [],
@@ -15,6 +18,7 @@ const initialState = {
     index: 0,
     answer: null,
     score: 0,
+    secondsRemaining: null,
 };
 
 function shuffleArray(array) {
@@ -43,7 +47,11 @@ function reducer(state, action) {
                 status: "error",
             };
         case "start":
-            return { ...state, status: "active" };
+            return {
+                ...state,
+                status: "active",
+                secondsRemaining: state.questions.length * SECS_PER_QUESTION,
+            };
         case "newAnswer":
             const question = state.questions[state.index];
 
@@ -66,7 +74,14 @@ function reducer(state, action) {
                 index: 0,
                 answer: null,
                 score: 0,
+                secondsRemaining: 10,
                 status: "ready",
+            };
+        case "tick":
+            return {
+                ...state,
+                secondsRemaining: state.secondsRemaining - 1,
+                status: state.secondsRemaining === 0 ? "finish" : state.status,
             };
         default:
             throw new Error("Action unknown");
@@ -74,13 +89,14 @@ function reducer(state, action) {
 }
 
 export default function App() {
-    const [{ questions, status, index, answer, score }, dispach] = useReducer(
-        reducer,
-        initialState
-    );
+    const [
+        { questions, status, index, answer, score, secondsRemaining },
+        dispach,
+    ] = useReducer(reducer, initialState);
+
     const numQuestions = questions.length;
     const maxScore = questions.reduce((prev, cur) => prev + cur.points, 0);
-    console.log(score);
+
     useEffect(() => {
         async function fetchQuestions() {
             try {
@@ -128,13 +144,18 @@ export default function App() {
                             dispach={dispach}
                             answer={answer}
                         />
-
-                        <NextButton
-                            dispach={dispach}
-                            answer={answer}
-                            index={index}
-                            numQuestions={numQuestions}
-                        />
+                        <footer>
+                            <Timer
+                                dispach={dispach}
+                                secondsRemaining={secondsRemaining}
+                            />
+                            <NextButton
+                                dispach={dispach}
+                                answer={answer}
+                                index={index}
+                                numQuestions={numQuestions}
+                            />
+                        </footer>
                     </>
                 )}
                 {status === "finish" && (
