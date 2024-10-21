@@ -1,4 +1,7 @@
-export function FinishScreen({ score, maxScore, dispach }) {
+import { useQuiz } from "../contexts/QuizContext";
+
+export function FinishScreen() {
+    const { score, maxScore, dispatch } = useQuiz();
     const percentage = (score / maxScore) * 100;
 
     return (
@@ -9,7 +12,7 @@ export function FinishScreen({ score, maxScore, dispach }) {
             </p>
             <button
                 className="btn-ui"
-                onClick={() => dispach({ type: "reset" })}
+                onClick={() => dispatch({ type: "reset" })}
             >
                 Reset
             </button>

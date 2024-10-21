@@ -1,4 +1,7 @@
-export function Options({ question, dispach, answer }) {
+import { useQuiz } from "../contexts/QuizContext";
+
+export function Options({ question }) {
+    const { dispatch, answer } = useQuiz();
     const isAnswered = answer !== null;
 
     return (
@@ -17,7 +20,7 @@ export function Options({ question, dispach, answer }) {
                     key={option}
                     disabled={isAnswered}
                     onClick={() =>
-                        dispach({ type: "newAnswer", payload: index })
+                        dispatch({ type: "newAnswer", payload: index })
                     }
                 >
                     {option}
